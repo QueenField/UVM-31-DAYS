@@ -1,0 +1,24 @@
+class dma_seq_item extends uvm_sequence_item;
+  // Control Signals
+  rand bit        wr_en;
+
+  // Address Signals
+  rand bit [31:0] addr;
+
+  // Data Signals
+  rand bit [31:0] wdata;
+
+  bit      [31:0] rdata;
+
+  // Utility and Field declarations
+  `uvm_object_utils_begin(dma_seq_item)
+  `uvm_field_int(addr, UVM_ALL_ON)
+  `uvm_field_int(wr_en, UVM_ALL_ON)
+  `uvm_field_int(wdata, UVM_ALL_ON)
+  `uvm_object_utils_end
+
+  // Constructor
+  function new(string name = "dma_seq_item");
+    super.new(name);
+  endfunction
+endclass
