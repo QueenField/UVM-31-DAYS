@@ -42,67 +42,17 @@
 ##                                                                               ##
 ###################################################################################
 
-export PATH=$PATH:/opt/Xilinx/Vivado/2022.2/bin/
+all: build
 
-cd       day-01/sim/vivado
-make
-cd ../../day-02/sim/vivado
-make
-cd ../../day-03/sim/vivado
-make
-cd ../../day-04/sim/vivado
-make
-cd ../../day-05/sim/vivado
-make
-cd ../../day-06/sim/vivado
-make
-cd ../../day-07/sim/vivado
-make
-cd ../../day-08/sim/vivado
-make
-cd ../../day-09/sim/vivado
-make
-cd ../../day-10/sim/vivado
-make
-cd ../../day-11/sim/vivado
-make
-cd ../../day-12/sim/vivado
-make
-cd ../../day-13/sim/vivado
-make
-cd ../../day-14/sim/vivado
-make
-cd ../../day-15/sim/vivado
-make
-cd ../../day-16/sim/vivado
-make
-cd ../../day-17/sim/vivado
-make
-cd ../../day-18/sim/vivado
-make
-cd ../../day-19/sim/vivado
-make
-cd ../../day-20/sim/vivado
-make
-cd ../../day-21/sim/vivado
-make
-cd ../../day-22/sim/vivado
-make
-cd ../../day-23/sim/vivado
-make
-cd ../../day-24/sim/vivado
-make
-cd ../../day-25/sim/vivado
-make
-cd ../../day-26/sim/vivado
-make
-cd ../../day-27/sim/vivado
-make
-cd ../../day-28/sim/vivado
-make
-cd ../../day-29/sim/vivado
-make
-cd ../../day-30/sim/vivado
-make
-cd ../../day-31/sim/vivado
-make
+build:
+	verilator --cc --exe --main --timing -Mdir testbench-simulation --output-groups 20 -DUVM_NO_DPI --prefix testbench -o testbench +incdir+../../library +incdir+../../../uvm/src --timescale 1ns/1ps --error-limit 100 ../../../uvm/src/uvm.sv ../../library/testbench.sv ../../application/fsm.sv -Wno-lint -Wno-style -Wno-SYMRSVDWORD -Wno-IGNOREDRETURN -Wno-ZERODLY
+
+simulate:
+	make -C testbench-simulation -j -f testbench.mk testbench
+	testbench-simulation/testbench
+
+test:
+	gtkwave testbench.vcd
+
+clean:
+	rm -rf testbench-simulation
